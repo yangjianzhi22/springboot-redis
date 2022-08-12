@@ -19,6 +19,16 @@ Redis（Remote Dictionary Server )，即远程字典服务，是一个开源的�
 </dependency>
 ```
 
+- yml配置
+
+```
+spring:
+  redis:
+    database: 0
+    host: localhost
+    port: 6379
+```
+
 - 测试
 
 ```
