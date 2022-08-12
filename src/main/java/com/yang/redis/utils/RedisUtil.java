@@ -1,66 +1,16 @@
-# springboot-redis
+package com.yang.redis.utils;
 
-springboot+redis整合应用
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.stereotype.Component;
+import org.springframework.util.CollectionUtils;
 
-> 参考: [https://www.kuangstudy.com/bbs/1534913977346584577](https://www.kuangstudy.com/bbs/1534913977346584577)
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
-## redis
-
-Redis（Remote Dictionary Server )，即远程字典服务，是一个开源的使用ANSI C语言编写、支持网络、可基于内存亦可持久化的日志型、Key-Value数据库，并提供多种语言的API。
-
-## 使用
-
-- 添加依赖
-
-```
-<dependency>
-    <groupId>org.springframework.boot</groupId>
-    <artifactId>spring-boot-starter-data-redis</artifactId>
-</dependency>
-```
-
-- 测试
-
-```
-@Resource
-private RedisTemplate redisTemplate;
-
-@Test
-void contextLoads() {
-    redisTemplate.opsForValue().set("myKey", "myValue");
-    System.out.println(redisTemplate.opsForValue().get("myKey"));
-}
-```
-
-运行： 
-
-![1](./docs/1.jpg)
-
-## 自定义工具
-
-- 配置
-
-```
-@Configuration
-public class RedisConfig {
-
-    @Bean
-    public RedisTemplate<String, Object> redisTemplate(RedisConnectionFactory factory) {
-        RedisTemplate<String, Object> template = new RedisTemplate<>();
-        //关联
-        template.setConnectionFactory(factory);
-        //设置key的序列化器
-        template.setKeySerializer(new StringRedisSerializer());
-        //设置value的序列器
-        template.setValueSerializer(new Jackson2JsonRedisSerializer<Object>(Object.class));
-        return template;
-    }
-}
-```
-
-- 工具类
-
-```
 @Component
 public final class RedisUtil {
 
@@ -621,4 +571,3 @@ public final class RedisUtil {
     }
 
 }
-```
